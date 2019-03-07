@@ -73,6 +73,8 @@ class BasicIPP
 	public $http_timeout = 30; // timeout at http connection (seconds) 0 => default => 30.
 	public $http_data_timeout = 30; // data reading timeout (milliseconds) 0 => default => 30.
 	public $ssl = false;
+	public $is_verify_peer = true;
+	public $is_verify_peer_name = true;
 	public $debug_level = 3; // max 3: almost silent
 	public $alert_on_end_tag; // debugging purpose: echo "END tag OK" if (1 and  reads while end tag)
 	public $with_exceptions = 0; // compatibility mode for old scripts
@@ -409,11 +411,11 @@ class BasicIPP
 
 		switch ($sides)
 		{
-			case 1:
+			case "1":
 				$sides = "one-sided";
 				break;
 
-			case 2:
+			case "2":
 				$sides = "two-sided-long-edge";
 				break;
 
@@ -807,6 +809,8 @@ class BasicIPP
 		}
 		$http->port = $this->port;
 		$http->timeout = $this->http_timeout;
+		$http->is_verify_peer = $this->is_verify_peer;
+		$http->is_verify_peer_name = $this->is_verify_peer_name;
 		$http->data_timeout = $this->http_data_timeout;
 		$http->force_multipart_form_post = false;
 		$http->user = $this->username;

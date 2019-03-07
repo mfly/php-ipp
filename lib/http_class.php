@@ -136,6 +136,8 @@ class http_class
 	public $data_timeout = 30; // time waiting for data, milliseconds
 	public $data_chunk_timeout = 1; // time waiting between data chunks, millisecond
 	public $force_multipart_form_post;
+	public $is_verify_peer = true;
+	public $is_verify_peer_name = true;
 	public $username;
 	public $password;
 	public $request_headers = array();
@@ -232,7 +234,17 @@ class http_class
 				}
 			}
 		}
-		$this->connection = @fsockopen($transport_type . $url, $port, $errno, $errstr, $this->timeout);
+		if ($transport_type == 'tls://'){
+			$context = stream_context_create([
+				'ssl' => [
+					'verify_peer' => $this->is_verify_peer,
+					'verify_peer_name' => $this->is_verify_peer_name
+				]
+			]);
+			$this->connection  = @stream_socket_client($transport_type . $url.':'.$port, $errno, $errstr, $this->timeout, STREAM_CLIENT_CONNECT, $context);
+		}else {
+			$this->connection = @fsockopen($transport_type . $url, $port, $errno, $errstr, $this->timeout);
+		}
 		$error =
 			sprintf(_('Unable to connect to "%s%s port %s": %s'), $transport_type,
 				$url, $port, $errstr);
