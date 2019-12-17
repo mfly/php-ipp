@@ -1,5 +1,5 @@
 {
-	"name": "pigult/php-ipp",
+	"name": "bling/php-ipp",
 	"description": "This class implements Internet Printing Protocol on client side.",
 	"minimum-stability": "stable",
 	"authors": [
