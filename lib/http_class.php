@@ -375,8 +375,8 @@ class http_class
 		$content_length = 0;
 		foreach ($this->arguments["BodyStream"] as $argument)
 		{
-            $type = key($argument);
-            $value = reset($argument);
+			$type = key($argument);
+			$value = reset($argument);
 
 			reset($argument);
 			if ($type == "Data")
@@ -444,8 +444,8 @@ class http_class
 		}
 		foreach ($this->arguments["BodyStream"] as $argument)
 		{
-            $type = key($argument);
-            $value = reset($argument);
+			$type = key($argument);
+			$value = reset($argument);
 
 			reset($argument);
 			if ($type == "Data")
